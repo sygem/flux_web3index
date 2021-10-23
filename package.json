@@ -1,0 +1,26 @@
+{
+  "name": "flux_web3index",
+  "version": "0.0.1",
+  "description": "API endpoint to support web3index.org",
+  "main": "server.js",
+  "repository": "https://github.com/sygem/flux_web3index",
+  "author": "JeffVader",
+  "license": "MIT",
+  "dependencies": {
+    "apicache": "^1.6.2",
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "mongodb": "^4.1.3",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1"
+  }
+}
