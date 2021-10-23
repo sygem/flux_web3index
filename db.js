@@ -2,16 +2,14 @@ const { MongoClient } = require('mongodb');
 const uri = "mongodb://localhost:27017/";
 const dbName = "flux_web3";
 
-const fetchRevenue = async (callback) => {
+const fetchRevenue = async () => {
   const client = new MongoClient(uri, { useUnifiedTopology: true}, { useNewUrlParser: true }, { connectTimeoutMS: 30000 }, { keepAlive: 1});
   const db = await client.connect();
   const dbo = client.db(dbName);
   const query = {};
-  dbo.collection('revenue').find(query).toArray(function(err, result) {
-    db.close();
-    if (err) throw err;
-    callback(result);
-  });
+  const result = await dbo.collection('revenue').find(query).toArray();
+  db.close();
+  return result;
 };
 
 const storeRevenue = async (revenueData) => {

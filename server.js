@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const router = require('./router.js');
+//const router = require('./router.js');
 const path = require('path');
 const dotenv = require('dotenv');
 const { default: axios } = require('axios');
 const db = require('./db');
+const apiRoutes = require('./api');
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const router = express.Router();
+apiRoutes.addRoutes(router);
+
 app.use('/api/v1', router);
 
 // catch 404 and forward to error handler
@@ -35,8 +39,8 @@ app.use((req, res, next) => {
     next(err);
 });
 
-const server = app.listen(process.env.PORT || 6000).on('listening', () => {
-    console.log(`App live and listening on port: ${(process.env.PORT || 6000)}`);
+const server = app.listen(process.env.PORT || 8000).on('listening', () => {
+    console.log(`App live and listening on port: ${(process.env.PORT || 8000)}`);
 });
 
 
