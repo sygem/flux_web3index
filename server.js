@@ -32,11 +32,7 @@ app.use('/api/v1', router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    //console.log(req)
-    const err = new Error('Not Found');
-    err.status = 404;
-    res.send('Route not found');
-    next(err);
+    res.status(404).send('Route not found');
 });
 
 const server = app.listen(process.env.PORT || 8000).on('listening', () => {
