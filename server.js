@@ -43,7 +43,7 @@ const server = app.listen(process.env.PORT || 8000).on('listening', () => {
 // Every 10 minutes, update the revenue figure for the current date
 
 const calculateRevenue = () => {
-  const KDAperWeek = 2300;
+  const KDAperDay = process.env.KDA_PER_DAY;
   const now = new Date();
   now.setUTCHours(0);
   now.setUTCMinutes(0);
@@ -53,7 +53,7 @@ const calculateRevenue = () => {
 
   // how far through this day are we?
   const dayProgress = (Date.now() - timestamp) / (1000 * 60 * 60 * 24);
-  const numKDAToday = KDAperWeek / 7 * dayProgress;
+  const numKDAToday = KDAperDay * dayProgress;
 
   // fetch the KDA price
   axios.get('https://api.coingecko.com/api/v3/simple/price?ids=kadena&vs_currencies=usd')

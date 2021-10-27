@@ -5,7 +5,7 @@ const { nextTick } = require('process');
 const cache = apicache.middleware;
 
 // API Routes
-const KDAperDay = 2300 / 7;
+const KDAperDay = process.env.KDA_PER_DAY;
 
 module.exports = {
   addRoutes(router) {

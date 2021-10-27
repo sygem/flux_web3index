@@ -1,7 +1,7 @@
 const { default: axios } = require('axios');
 const db = require('./db');
 
-const KDAperDay = 2300 / 7;
+const KDAperDay = process.env.KDA_PER_DAY;
 
 function sleep(ms) {
   return new Promise((resolve) => {
