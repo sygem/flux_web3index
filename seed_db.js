@@ -20,9 +20,11 @@ async function run() {
     now.setDate(now.getDate()-index);
     const timestamp = now.getTime();
 
+    let fetching = true;
     // fetch the KDA price
-    axios.get(`https://api.coingecko.com/api/v3/coins/kadena/history?date=${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`)
-      .then((response) => {
+    while (fetching) {
+      const response = await axios.get(`https://api.coingecko.com/api/v3/coins/kadena/history?date=${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`)
+      if (response.data) {
         console.log(response.data.market_data.current_price.usd);
         const revenueKDA = response.data.market_data.current_price.usd * KDAperDay;
         db.storeRevenue({
@@ -35,13 +37,15 @@ async function run() {
             },
           },
         });
-      }).catch((error) => {
-        console.log(error);
-      });
-    
-    // Coingecko API has a rate limit of "10-50 calls per minute", so this should
-    // avoid rate-limiting.
-    await sleep(5000);
+        fetching = false;
+      } else {
+        console.log('Invalid response, trying again in 5 seconds');
+      }
+      
+      // Coingecko API has a rate limit of "10-50 calls per minute", so this should
+      // avoid rate-limiting.
+      await sleep(5000);
+    }
   }
 }
 
